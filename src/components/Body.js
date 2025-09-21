@@ -4,6 +4,7 @@ import {useState} from "react";
 import React, { useEffect } from "react";
 import Shimmer from "./shimmer.js";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 
 const Body = () => {
@@ -16,7 +17,7 @@ const Body = () => {
      const [searchText , setsearchText] = useState("");
      // when we write  or whenever state cariable update , react triggers re-consiliation cycle (re-renders the component)
      // multiple time it re -renders the component and how fast it is happening; react is finding older virtual dom and newer virtual dom
-     console.log("Body-rendered");
+     console.log("Body-rendered", listOfRestaurant);;
 
     useEffect( () => {
         fetchData();
@@ -44,14 +45,18 @@ const Body = () => {
         // };
         //ternnary operator
 
+        const onlineStatus= useOnlineStatus();
+        if(onlineStatus===false) return <h1>LOoks Like You Are Offlinee!! 
+          <br></br>  Check your internet connection</h1>
+
      return listOfRestaurant.length===0 ? <Shimmer /> : (
         <div className="body">
-            <div className="filter">
-                <div className="search">
-                    <input type="text" className="search-box" value= {searchText} onChange={(e) => {
+            <div className="filter flex">
+                <div className="search m-4 p-4 font-bold ">
+                    <input type="text" className="border-black " value= {searchText} onChange={(e) => {
                             setsearchText(e.target.value);
                     }}/>
-                    <button
+                    <button className ="px-4 py-2 bg-green-300 m-4 rounded-lg hover:bg-green-700 text-white "
                      onClick={() => {
                  console.log(searchText);
 
@@ -63,16 +68,20 @@ const Body = () => {
   }}
 >   Search</button>
                 </div>
-             
-                <button className = "filter-btn"
+                <div>
+                  <div className="flex gap-4 justify-center my-8">
+                  <button className = " bg-gray-300 px-4 py-2  text-black font-bold m-4 rounded-lg hover:bg-gray-500"
                     onClick={() => {
                      const filteredList = listOfRestaurant.filter(
                       (res) => res.info.avgRating > 4.5);
                setListOfRestaurant(filteredList); // update state
           }}>
                Top Rated Restaurant</button>
+                </div>
+               </div>
+                
             </div>
-            <div className="restaurant-list">
+            <div className="flex flex-wrap">
                {listOfRestaurant.map((restaurant) => (
                 <Link key={restaurant.info.id}
                  to = {"/restaurants/"+restaurant.info.id}>

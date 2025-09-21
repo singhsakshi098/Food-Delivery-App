@@ -5,26 +5,17 @@ class UserClass extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            count:0,
-            count2:2,
-        };
+        console.log("child constructor");
+
     } 
+   
     render(){
+        console.log("child render");
+
         //AFTER WRITTING CONST we dont need to use this.props.name
         const {name , location } = this.props;
-        const {count , count2} =this.state;
         return (
-             <div className="user-card">
-                <h1>count:{count}</h1>
-                <button onClick= {() => {
-                    //never directlyy update the state variable directly > it will give inconsistency in your program
-                    this.setState({
-                        count: this.state.count+1
-                    });
-                }}
-                > INCREAMENT COUNT
-                </button>
+             <div className="user-card">                
               <h2>Name: {name}</h2>
               <h3>Location :{this.props.location}</h3>
               <h4>Contact : singhsakshi098</h4>

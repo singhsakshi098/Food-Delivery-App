@@ -53,3 +53,23 @@ home i wanted to redirect to home page anchor tag is not a good option because i
 * there is two type of routing in web apps
 - Client-Side routing
 -Server-Side routing
+
+/* 
+-Parent Constructor
+-parent render
+
+    -first constructor
+    -first render
+    
+    -second constructor
+    -second render
+
+    <DOM UPDATED - IN SINGLE BATCH>
+    
+    -first componentDidMoun
+    -second ComponentDidMount
+    
+-parent componentDidMoUNT*/
+
+
+## custom hooks: it is not mandatory to use but using this make our code more modular , readable and maintainable

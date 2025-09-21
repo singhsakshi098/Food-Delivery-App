@@ -1,44 +1,61 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { LOGO_URL } from "../utils/constants";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
-    //when we need to do something dynamically normal js variable is not used ; then state variable comes into picture
-    // the whole react component is re-rendering when we click on the login button
-    const btnName ="Login";
+  const [btnNameReact, setbtnNameReact] = useState("Login");
+  const onlineStatus = useOnlineStatus();
 
-    const [btnNameReact , setbtnNameReact] = useState("Login");
+  return (
+    <header className="flex justify-between items-center px-6 py-4 shadow-md bg-red-500 hover:bg-cream-[700]">
+      {/* Logo Section */}
+      <div className="flex items-center">
+        <img
+          className="w-24 h-auto object-contain rounded-2xl shadow-sm "
+          src={LOGO_URL}
+          alt="logo"
+        />
+      </div>
 
-    console.log("Body-rendered");
+      {/* Navigation */}
+      <nav>
+        <ul className="flex items-center gap-6 text-gray-700 font-medium text-lg">
+          <li className="flex items-center">
+            Online:{" "}
+            <span className="ml-1">{onlineStatus ? "✅" : "⚫"}</span>
+          </li>
 
-   
-    return (
-        <div className="header">
-            <div className="logo container">
-                <img 
-                src="https://img.freepik.com/premium-vector/food-ordering-app-logo-with-points-fork-shapes-center_666184-195.jpg"
-                alt="logo"
-                />
-            </div>
-            <div className="nav-items">
-                <ul>
-                    <li>
-                        <Link to = "/">Home </Link> </li>                        
-                    <li>
-                       <Link to = "/About">About</Link> </li>
-                    <li>
-                        <Link to = "/contact">ContactUS</Link></li>
-                    <li>cart</li>
+          <li className="hover:text-green-600 transition-colors font-medium text-lg">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="hover:text-green-600 transition-colors font-medium text-lg">
+            <Link to="/about">About</Link>
+          </li>
+          <li className="hover:text-green-600 transition-colors font-medium text-lg">
+            <Link to="/grocery">Grocery</Link>
+          </li>
+          <li className="hover:text-green-600 transition-colors font-medium text-lg">
+            <Link to="/contact">Contact</Link>
+          </li>
 
-                    <button className="login" onClick = { () =>
-                    {                         
-                       btnNameReact === ("Login") ? setbtnNameReact("Logout") :setbtnNameReact("Login");
-                     }
+          <li className="hover:text-green-600 transition-colors cursor-pointer font-medium text-lg">
+            Cart 🛒
+          </li>
 
-                    }>
-                         {btnNameReact}</button>
-                </ul>
-            </div>
-        </div>
-    )
+          {/* Login/Logout Button */}
+          <button
+            className="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition-all shadow-md"
+            onClick={() =>
+              setbtnNameReact((prev) => (prev === "Login" ? "Logout" : "Login"))
+            }
+          >
+            {btnNameReact}
+          </button>
+        </ul>
+      </nav>
+    </header>
+  );
 };
+
 export default Header;
