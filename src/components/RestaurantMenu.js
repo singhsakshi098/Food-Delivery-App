@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
@@ -7,16 +8,20 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
 
+  const [expandedCategoryIndex, setExpandedCategoryIndex] = useState(0); // first category expanded
+
   if (resInfo === null) return <Shimmer />;
 
-  // restaurant info
   const infoCard = resInfo?.cards?.find((c) => c?.card?.card?.info);
   const { name, cuisines, costForTwoMessage } = infoCard?.card?.card?.info || {};
 
-  // categories (menu sections)
   const categories =
     resInfo?.cards?.find((c) => c.groupedCard)
       ?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+
+  const handleCategoryClick = (idx) => {
+    setExpandedCategoryIndex(expandedCategoryIndex === idx ? null : idx);
+  };
 
   return (
     <div className="text-center">
@@ -33,7 +38,14 @@ const RestaurantMenu = () => {
           return null;
         }
 
-        return <RestaurantCategory key={idx} category={cat} />;
+        return (
+          <RestaurantCategory
+            key={idx}
+            category={cat}
+            isExpanded={expandedCategoryIndex === idx} // controlled by parent
+            onClick={() => handleCategoryClick(idx)}
+          />
+        );
       })}
     </div>
   );

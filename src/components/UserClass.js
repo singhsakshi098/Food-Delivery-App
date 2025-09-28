@@ -5,12 +5,12 @@ class UserClass extends React.Component{
     constructor(props){
         super(props);
 
-        console.log("child constructor");
+        //console.log("child constructor");
 
     } 
    
     render(){
-        console.log("child render");
+        //console.log("child render");
 
         //AFTER WRITTING CONST we dont need to use this.props.name
         const {name , location } = this.props;

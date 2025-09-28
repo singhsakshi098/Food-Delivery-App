@@ -1,26 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import ItemList from "./ItemList.js";
 
-const RestaurantCategory = ({ category}) => {
-  const [showItems, setShowItems] = useState(false);
-  
-
-    const handleClick =() => {
-      console.log("Clicked");
-      setShowItems(!showItems);
-    }
+const RestaurantCategory = ({ category, isExpanded, onClick }) => {
   return (
     <div>
-      <div className="w-6/12 bg-gray-200 mx-auto my-6 font-bold p-4 shadow-lg text-xl ">
-       <div className="flex-justify-between cursor-pointer" onClick ={handleClick}>
+      <div className="w-6/12 bg-gray-200 mx-auto my-6 font-bold p-4 shadow-lg text-xl">
+        <div className="flex justify-between cursor-pointer" onClick={onClick}>
           <span className="text-lg">
-            {category.title} {category.itemCards.length} 
-          </span> 
-            <span> 🔽 </span>
-          </div>
+            {category.title} ({category.itemCards.length})
+          </span>
+          <span>{isExpanded ? "🔽" : "▶️"}</span>
         </div>
-      
-      { showItems && <ItemList items={category.itemCards} />}
+      </div>
+
+      {isExpanded && <ItemList items={category.itemCards} />}
     </div>
   );
 };
