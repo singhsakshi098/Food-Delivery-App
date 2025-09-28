@@ -13,15 +13,15 @@ import RestaurantMenu from "./components/RestaurantMenu";
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
-  const [userInfo, setUserInfo] = useState();
+  const [userName, setUserName] = useState();
 
   useEffect(() => {
     const data = { name: "Sakshi Singh" };
-    setUserInfo(data.name);
+    setUserName(data.name);
   }, []);
 
   return (
-    <UserContext.Provider value={{ loggedInUser: userInfo || "Default User" }}>
+    <UserContext.Provider value={{ loggedInUser: userName , setUserName }}>
       <div className="App">
         <Header />
         <Outlet />

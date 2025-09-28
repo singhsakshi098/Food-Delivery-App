@@ -1,10 +1,12 @@
 import RestaurantCard from "./RestaurantCard.js";
 import resObj from "../utils/mockData";
-import {useState} from "react";
+import {useState } from "react";
 import React, { useEffect } from "react";
 import Shimmer from "./shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { useContext } from "react";
+import { UserContext } from "../utils/UserContext";
 
 
 const Body = () => {
@@ -49,11 +51,13 @@ const Body = () => {
         if(onlineStatus===false) return <h1>LOoks Like You Are Offlinee!! 
           <br></br>  Check your internet connection</h1>
 
+          const { loggedInUser , setUserName } = useContext(UserContext);
+
      return listOfRestaurant.length===0 ? <Shimmer /> : (
         <div className="body">
             <div className="filter flex">
                 <div className="search m-4 p-4 font-bold ">
-                    <input type="text" className="border-black " value= {searchText} onChange={(e) => {
+                    <input type="text" className="border border-black " value= {searchText} onChange={(e) => {
                             setsearchText(e.target.value);
                     }}/>
                     <button className ="px-4 py-2 bg-green-300 m-4 rounded-lg hover:bg-green-700 text-white "
@@ -66,7 +70,7 @@ const Body = () => {
 
     setListOfRestaurant(filtered);
   }}
->   Search</button>
+      >   Search</button>
                 </div>
                 <div>
                   <div className="flex gap-4 justify-center my-8">
@@ -77,8 +81,15 @@ const Body = () => {
                setListOfRestaurant(filteredList); // update state
           }}>
                Top Rated Restaurant</button>
+
                 </div>
                </div>
+              <div className="search w-4 p-4 flex items-center">
+                  <label>UserName</label>
+                  <input  className="border border-black p-2"
+                  value={loggedInUser}
+                  onChange = {(e) =>setUserName(e.target.value)}/>
+                </div>
                 
             </div>
             <div className="flex flex-wrap">
