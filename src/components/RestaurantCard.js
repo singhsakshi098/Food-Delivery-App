@@ -5,29 +5,36 @@ import { UserContext } from "../utils/UserContext";
 const RestaurantCard = (props) => {
   const { resData } = props;
 
-  // DESTRUCTURING for convenience
-  const { cloudinaryImageId, name, cuisines, avgRating, costForTwo, deliveryTime } =
+  //console.log(resData);
+
+  const { cloudinaryImageId, name, cuisines, avgRating, costForTwo } =
     resData.info;
 
-  // ✅ Get loggedInUser from context
   const { loggedInUser } = useContext(UserContext);
 
   return (
-    <div className="m-4 p-4 w-[250px] bg-gray-200 rounded-lg hover:shadow-lg hover:bg-gray-500">
+    <div data-testid ="resCard" className="m-4 p-4 w-64 h-[360px] bg-white rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 flex flex-col">
+      {/* Image */}
       <img
-        className="rounded-lg"
+        className="w-full h-40 object-cover rounded-lg"
         alt="res-logo"
         src={"https://media-assets.swiggy.com/swiggy/image/upload/" + cloudinaryImageId}
       />
 
-      <h4 className="font-bold py-4 text-lg">{name}</h4>
-      <h5>{cuisines.join(", ")} Minutes</h5>
-      <h5>{avgRating} stars</h5>
-      <h5>{costForTwo}</h5>
-      <h5>{resData?.info?.sla?.slaString}</h5>
+      {/* Content */}
+      <div className="mt-3 flex flex-col flex-grow">
+        <h4 className="font-bold text-lg truncate">{name}</h4>
+        <p className="text-sm text-gray-600 line-clamp-2">{(cuisines || []).join(", ")}</p>
 
-      {/* ✅ Now loggedInUser is defined */}
-      <h4>User: {loggedInUser}</h4>
+        <div className="mt-auto space-y-1 text-sm text-gray-700">
+          <p>⭐ {avgRating}</p>
+          <p>{costForTwo}</p>
+          <p>{resData?.info?.sla?.slaString}</p>
+        </div>
+
+        {/* User */}
+        <h4 className="mt-2 text-xs text-gray-500">User: {loggedInUser}</h4>
+      </div>
     </div>
   );
 };

@@ -73,3 +73,34 @@ home i wanted to redirect to home page anchor tag is not a good option because i
 
 
 ## custom hooks: it is not mandatory to use but using this make our code more modular , readable and maintainable
+
+# Redux Toolkit
+ -Install @redux/toolkit and react-redux
+ -Build ourOur Store 
+ -Connect the Store to our app
+ -Slice(CartSlice)
+ -Dispatch(sction)
+ -selector
+
+
+
+ # Types Of Testing for Developer
+
+
+  -- unit Testing 
+  -- Integration Testing 
+  -- End To End Testing = e2e testing
+
+
+  # Setting up Testing in our App
+   -Install React Testing Library
+   -Installed jest
+   -Installed Babel dependensies
+   -Configure babel
+   -Configure Parcel config file to Disable default babel transpilation
+   - Jest configuration
+   - jest -npx  jest -init
+   -Install js dom  Library
+   -Iclude @babel/preset-react - to make jsx work in test cases
+   -Install => npm i -D @testing-library/jest-dom
+   

@@ -19,7 +19,8 @@ const Body = () => {
      const [searchText , setsearchText] = useState("");
      // when we write  or whenever state cariable update , react triggers re-consiliation cycle (re-renders the component)
      // multiple time it re -renders the component and how fast it is happening; react is finding older virtual dom and newer virtual dom
-     console.log("Body-rendered", listOfRestaurant);;
+
+    // console.log("Body-rendered", listOfRestaurant);;
 
     useEffect( () => {
         fetchData();
@@ -29,7 +30,7 @@ const Body = () => {
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.67578170372547&lng=77.5028330142963&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
         const json = await data.json();
-        console.log("API Response:", json);
+       // console.log("API Response:", json);
 
          const restaurants =
             json?.data?.cards?.find(
@@ -57,12 +58,18 @@ const Body = () => {
         <div className="body">
             <div className="filter flex">
                 <div className="search m-4 p-4 font-bold ">
-                    <input type="text" className="border border-black " value= {searchText} onChange={(e) => {
-                            setsearchText(e.target.value);
+                    <input 
+                    type="text"
+                    data-testid = "searchInput"
+                    className="border border-black " 
+                    value= {searchText} onChange={(e) => {
+                    setsearchText(e.target.value);
                     }}/>
-                    <button className ="px-4 py-2 bg-green-300 m-4 rounded-lg hover:bg-green-700 text-white "
-                     onClick={() => {
-                 console.log(searchText);
+
+                    <button 
+                    className ="px-4 py-2 bg-green-300 m-4 rounded-lg hover:bg-green-700 text-white "
+                    onClick={() => {
+                // console.log(searchText);
 
     const filtered = listOfRestaurant.filter((res) =>
       res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -70,7 +77,8 @@ const Body = () => {
 
     setListOfRestaurant(filtered);
   }}
-      >   Search</button>
+      >   Search
+      </button>
                 </div>
                 <div>
                   <div className="flex gap-4 justify-center my-8">

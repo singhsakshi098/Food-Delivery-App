@@ -7,7 +7,7 @@ const useRestaurantMenu = (resId) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching:", MENU_API + resId);
+       // console.log("Fetching:", MENU_API + resId);
 
         const response = await fetch(MENU_API + resId);
 
@@ -18,7 +18,7 @@ const useRestaurantMenu = (resId) => {
         const json = await response.json();
         setResInfo(json.data);
       } catch (error) {
-        console.error("❌ Fetch failed:", error);
+      //  console.error("❌ Fetch failed:", error);
         setResInfo(null); // prevent crash
       }
     };
